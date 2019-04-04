@@ -44,7 +44,17 @@ createGoldenTest goldenPath = do
   pure $ goldenVsString inputPath goldenPath $
     case processText format input of
       Left e -> throw e
-      Right out -> pure $ toLazy $ (encodeUtf8 :: Text -> ByteString) (out <> "\n")
+      Right out -> pure $ toLazy $ (encodeUtf8 :: Text -> ByteString) out
 
 processText :: (Module () -> Module ()) -> Text -> Either [ParserError] Text
-processText fun input = printTokens <$> extractSource <$> fun <$> parse input
+processText fun input = do
+  parsed <- parse input
+  let tokens = printTokens $ extractSource $ fun parsed
+  pure $ tokens <> foldMap ppLc (modTrailingComments parsed)
+
+ppLc :: Comment LineFeed -> Text
+ppLc = \case
+  Comment raw -> raw
+  Space n -> T.replicate n " "
+  Line LF -> "\n"
+  Line CRLF -> "\r\n"
