@@ -1,0 +1,86 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 4ae2542b7304e6f54fb2192f423a3b50a6efad29b88a8e79f00aa4e4523ef201
+
+name:           psfmt
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/reactormonk/psfmt#readme>
+homepage:       https://github.com/reactormonk/psfmt#readme
+bug-reports:    https://github.com/reactormonk/psfmt/issues
+author:         Simon Hafner
+maintainer:     hafnersimon@gmail.com
+copyright:      LGPLv3
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/reactormonk/psfmt
+
+library
+  exposed-modules:
+      Lib
+      TraverseTree
+  other-modules:
+      Paths_psfmt
+  hs-source-dirs:
+      src
+  default-extensions: ApplicativeDo BangPatterns ConstraintKinds DataKinds DefaultSignatures DeriveFoldable DeriveFunctor DeriveGeneric DeriveLift DeriveTraversable DerivingStrategies EmptyCase ExistentialQuantification FlexibleContexts FlexibleInstances FunctionalDependencies GADTs GeneralizedNewtypeDeriving InstanceSigs KindSignatures LambdaCase MultiParamTypeClasses MultiWayIf NamedFieldPuns OverloadedStrings PatternSynonyms RankNTypes ScopedTypeVariables StandaloneDeriving TupleSections TypeApplications TypeFamilies TypeFamilyDependencies TypeOperators NoImplicitPrelude
+  build-depends:
+      base >=4.7 && <5
+    , filepath
+    , generic-lens
+    , lens
+    , purescript-cst
+    , relude
+    , text
+  default-language: Haskell2010
+
+executable psfmt-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_psfmt
+  hs-source-dirs:
+      app
+  default-extensions: ApplicativeDo BangPatterns ConstraintKinds DataKinds DefaultSignatures DeriveFoldable DeriveFunctor DeriveGeneric DeriveLift DeriveTraversable DerivingStrategies EmptyCase ExistentialQuantification FlexibleContexts FlexibleInstances FunctionalDependencies GADTs GeneralizedNewtypeDeriving InstanceSigs KindSignatures LambdaCase MultiParamTypeClasses MultiWayIf NamedFieldPuns OverloadedStrings PatternSynonyms RankNTypes ScopedTypeVariables StandaloneDeriving TupleSections TypeApplications TypeFamilies TypeFamilyDependencies TypeOperators NoImplicitPrelude
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , filepath
+    , generic-lens
+    , lens
+    , psfmt
+    , purescript-cst
+    , relude
+    , text
+  default-language: Haskell2010
+
+test-suite psfmt-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_psfmt
+  hs-source-dirs:
+      test
+  default-extensions: ApplicativeDo BangPatterns ConstraintKinds DataKinds DefaultSignatures DeriveFoldable DeriveFunctor DeriveGeneric DeriveLift DeriveTraversable DerivingStrategies EmptyCase ExistentialQuantification FlexibleContexts FlexibleInstances FunctionalDependencies GADTs GeneralizedNewtypeDeriving InstanceSigs KindSignatures LambdaCase MultiParamTypeClasses MultiWayIf NamedFieldPuns OverloadedStrings PatternSynonyms RankNTypes ScopedTypeVariables StandaloneDeriving TupleSections TypeApplications TypeFamilies TypeFamilyDependencies TypeOperators NoImplicitPrelude
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , filepath
+    , generic-lens
+    , lens
+    , psfmt
+    , purescript-cst
+    , relude
+    , tasty
+    , tasty-golden
+    , text
+  default-language: Haskell2010

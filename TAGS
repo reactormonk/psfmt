@@ -1,0 +1,19 @@
+
+./Setup.hs,15
+main main1,2
+
+./app/Main.hs,37
+module Main Main0,1
+main main7,8
+
+./src/Lib.hs,38
+module LibLib0,1
+format format8,9
+
+./test/Spec.hs,155
+module Spec Spec0,1
+main main12,13
+tests tests15,16
+goldenTests goldenTests20,21
+runGoldenTest runGoldenTest25,26
+processText processText32,33
