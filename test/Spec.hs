@@ -41,7 +41,7 @@ createGoldenTest :: FilePath -> IO TestTree
 createGoldenTest goldenPath = do
   let inputPath = addExtension (dropExtension $ dropExtension goldenPath) ".purs"
   input <- T.readFile inputPath
-  pure $ goldenVsString inputPath goldenPath $
+  pure $ goldenVsStringDiff inputPath (\ref new -> ["diff", "-u", ref, new]) goldenPath $
     case processText format input of
       Left e -> throw e
       Right out -> pure $ toLazy $ (encodeUtf8 :: Text -> ByteString) out
