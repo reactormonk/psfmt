@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 4ae2542b7304e6f54fb2192f423a3b50a6efad29b88a8e79f00aa4e4523ef201
+-- hash: 33341d4bd966767d39027017051243e63d10fd0975c761a328397bf9e1387873
 
 name:           psfmt
 version:        0.1.0.0
@@ -28,6 +28,8 @@ source-repository head
 library
   exposed-modules:
       Lib
+      Psfmt.Imports
+      Psfmt.RecordAliases
       TraverseTree
   other-modules:
       Paths_psfmt
