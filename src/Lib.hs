@@ -5,15 +5,35 @@ module Lib
 
 import Relude
 
-import Data.List
-import Language.PureScript.CST
+import Language.PureScript.CST.Errors
+import Language.PureScript.CST.Print
+import Language.PureScript.CST as CST
 import Data.Generics.Product
 import Control.Lens
+import qualified Data.Text as T
 
 import Psfmt.Imports
+import Psfmt.RecordAliases
+import Psfmt.Utils
+import Psfmt.Traverals.TraverseSource
 
-format :: Module () -> Module ()
-format Module {..} =
+format :: Text -> Either (NonEmpty ParserError) Text
+format input = do
+  parsed <- parse input
+  let
+    extractSource = toListOf traverseToken
+    tokens = printTokens $ trailingWhitespacePass $ extractSource $ formatModule parsed
+  pure $ tokens <> foldMap ppLc (modTrailingComments parsed)
+
+ppLc :: Comment LineFeed -> Text
+ppLc = \case
+  Comment raw -> raw
+  Space n -> T.replicate n " "
+  Line LF -> "\n"
+  Line CRLF -> "\r\n"
+
+formatModule :: Module () -> Module ()
+formatModule Module {..} =
   Module
      { modAnn = modAnn
      , modKeyword = modKeyword
@@ -21,6 +41,23 @@ format Module {..} =
      , modExports = modExports
      , modWhere = modWhere
      , modImports = sortImports modImports
-     , modDecls = modDecls
+     , modDecls = void . reformatDecl . fmap (\_ -> IndentLevel 0) <$> modDecls
      , modTrailingComments = modTrailingComments
      }
+
+reformatDecl :: Declaration IndentLevel -> Declaration IndentLevel
+reformatDecl (DeclType a b c d) = reformatTypeDecl a b c d
+reformatDecl decl = decl
+
+trailingWhitespacePass :: [SourceToken] -> [SourceToken]
+trailingWhitespacePass tokens =
+  fmap fun zippedList
+  where
+    zippedList = zip tokens (map Just (drop 1 tokens) ++ [Nothing])
+    fun :: (SourceToken, Maybe SourceToken) -> SourceToken
+    fun (current, next) =
+      if maybe True (any isNewline . tokLeadingComments . tokAnn) next
+      then
+        trailWith removeWhiteSpace current
+      else
+        current

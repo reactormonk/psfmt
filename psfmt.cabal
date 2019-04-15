@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 33341d4bd966767d39027017051243e63d10fd0975c761a328397bf9e1387873
+-- hash: b3897710c1a7c9834e7aadc98f604e9801e7ee9dbc74e9769ade1080da80aeac
 
 name:           psfmt
 version:        0.1.0.0
@@ -30,7 +30,9 @@ library
       Lib
       Psfmt.Imports
       Psfmt.RecordAliases
-      TraverseTree
+      Psfmt.Traverals.TraverseSource
+      Psfmt.Traverals.TraverseStyle
+      Psfmt.Utils
   other-modules:
       Paths_psfmt
   hs-source-dirs:
@@ -53,7 +55,7 @@ executable psfmt-exe
   hs-source-dirs:
       app
   default-extensions: ApplicativeDo BangPatterns ConstraintKinds DataKinds DefaultSignatures DeriveFoldable DeriveFunctor DeriveGeneric DeriveLift DeriveTraversable DerivingStrategies EmptyCase ExistentialQuantification FlexibleContexts FlexibleInstances FunctionalDependencies GADTs GeneralizedNewtypeDeriving InstanceSigs KindSignatures LambdaCase MultiParamTypeClasses MultiWayIf NamedFieldPuns OverloadedStrings PatternSynonyms RankNTypes ScopedTypeVariables StandaloneDeriving TupleSections TypeApplications TypeFamilies TypeFamilyDependencies TypeOperators NoImplicitPrelude
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N -j4 +RTS -A32m -RTS
   build-depends:
       base >=4.7 && <5
     , filepath
@@ -73,12 +75,13 @@ test-suite psfmt-test
   hs-source-dirs:
       test
   default-extensions: ApplicativeDo BangPatterns ConstraintKinds DataKinds DefaultSignatures DeriveFoldable DeriveFunctor DeriveGeneric DeriveLift DeriveTraversable DerivingStrategies EmptyCase ExistentialQuantification FlexibleContexts FlexibleInstances FunctionalDependencies GADTs GeneralizedNewtypeDeriving InstanceSigs KindSignatures LambdaCase MultiParamTypeClasses MultiWayIf NamedFieldPuns OverloadedStrings PatternSynonyms RankNTypes ScopedTypeVariables StandaloneDeriving TupleSections TypeApplications TypeFamilies TypeFamilyDependencies TypeOperators NoImplicitPrelude
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N -j4 +RTS -A32m -RTS
   build-depends:
       base >=4.7 && <5
     , filepath
     , generic-lens
     , lens
+    , pretty-simple
     , psfmt
     , purescript-cst
     , relude

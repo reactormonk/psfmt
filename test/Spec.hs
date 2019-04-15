@@ -15,8 +15,9 @@ import Data.Generics.Product
 import Control.Lens
 import System.FilePath
 import Control.Exception
+import Text.Pretty.Simple
 
-import TraverseTree
+import Psfmt.Traverals.TraverseSource
 import Lib
 
 main :: IO ()
@@ -35,26 +36,16 @@ goldenTests = do
   let files = filter (\e -> ".out" == (takeExtension $ dropExtension e)) allFiles
   traverse createGoldenTest files
 
-instance Exception [ParserError]
+instance Exception (NonEmpty ParserError)
 
 createGoldenTest :: FilePath -> IO TestTree
 createGoldenTest goldenPath = do
   let inputPath = addExtension (dropExtension $ dropExtension goldenPath) ".purs"
   input <- T.readFile inputPath
   pure $ goldenVsStringDiff inputPath (\ref new -> ["diff", "-u", ref, new]) goldenPath $
-    case processText format input of
+    case format input of
       Left e -> throw e
       Right out -> pure $ toLazy $ (encodeUtf8 :: Text -> ByteString) out
 
-processText :: (Module () -> Module ()) -> Text -> Either [ParserError] Text
-processText fun input = do
-  parsed <- parse input
-  let tokens = printTokens $ extractSource $ fun parsed
-  pure $ tokens <> foldMap ppLc (modTrailingComments parsed)
-
-ppLc :: Comment LineFeed -> Text
-ppLc = \case
-  Comment raw -> raw
-  Space n -> T.replicate n " "
-  Line LF -> "\n"
-  Line CRLF -> "\r\n"
+tracePShowId :: Show a => a -> a
+tracePShowId a = trace (pShow a) a
