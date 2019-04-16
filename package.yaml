@@ -27,6 +27,8 @@ dependencies:
 - generic-lens
 - relude
 - lens
+- directory
+- pathwalk
 
 default-extensions:
   - ApplicativeDo

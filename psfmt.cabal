@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: b3897710c1a7c9834e7aadc98f604e9801e7ee9dbc74e9769ade1080da80aeac
+-- hash: c9256786b9c857ac0580e9aea2499f0b4a34122023c3d94992522e26f94530c5
 
 name:           psfmt
 version:        0.1.0.0
@@ -40,9 +40,11 @@ library
   default-extensions: ApplicativeDo BangPatterns ConstraintKinds DataKinds DefaultSignatures DeriveFoldable DeriveFunctor DeriveGeneric DeriveLift DeriveTraversable DerivingStrategies EmptyCase ExistentialQuantification FlexibleContexts FlexibleInstances FunctionalDependencies GADTs GeneralizedNewtypeDeriving InstanceSigs KindSignatures LambdaCase MultiParamTypeClasses MultiWayIf NamedFieldPuns OverloadedStrings PatternSynonyms RankNTypes ScopedTypeVariables StandaloneDeriving TupleSections TypeApplications TypeFamilies TypeFamilyDependencies TypeOperators NoImplicitPrelude
   build-depends:
       base >=4.7 && <5
+    , directory
     , filepath
     , generic-lens
     , lens
+    , pathwalk
     , purescript-cst
     , relude
     , text
@@ -58,9 +60,11 @@ executable psfmt-exe
   ghc-options: -threaded -rtsopts -with-rtsopts=-N -j4 +RTS -A32m -RTS
   build-depends:
       base >=4.7 && <5
+    , directory
     , filepath
     , generic-lens
     , lens
+    , pathwalk
     , psfmt
     , purescript-cst
     , relude
@@ -78,9 +82,11 @@ test-suite psfmt-test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N -j4 +RTS -A32m -RTS
   build-depends:
       base >=4.7 && <5
+    , directory
     , filepath
     , generic-lens
     , lens
+    , pathwalk
     , pretty-simple
     , psfmt
     , purescript-cst
