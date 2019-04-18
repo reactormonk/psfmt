@@ -1,10 +1,8 @@
 #!/usr/bin/bash
 
-git describe --tags --exact-match || exit 1
-
-GIT_VERSION=$(git describe --tags --exact-match)
+GIT_VERSION=$(git describe --tags)
 VERSION=${GIT_VERSION:1}
-OS=linux
+OS=${uname -s}
 DIR=psfmt-$VERSION-$OS
 BIN_DIR=release/$DIR/bin
 RELEASE_DIR=release/$DIR
@@ -14,6 +12,3 @@ cp README.md $RELEASE_DIR
 pushd release
 tar --create --file=$DIR.tar.gz $DIR
 popd
-
-github-release release -s $GITHUB_TOKEN -u reactormonk -r psfmt --tag $GIT_VERSION
-github-release upload -s $GITHUB_TOKEN -u reactormonk -r psfmt --tag $GIT_VERSION --file release/$DIR.tar.gz --name $DIR.tar.gz
