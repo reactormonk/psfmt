@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: c9256786b9c857ac0580e9aea2499f0b4a34122023c3d94992522e26f94530c5
+-- hash: eae3d960030574f86df6220a2e1d68ff511a18e4265805d1ec3768a00a311789
 
 name:           psfmt
 version:        0.1.0.0
@@ -50,7 +50,7 @@ library
     , text
   default-language: Haskell2010
 
-executable psfmt-exe
+executable psfmt
   main-is: Main.hs
   other-modules:
       Paths_psfmt

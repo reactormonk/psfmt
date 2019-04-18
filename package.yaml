@@ -71,7 +71,7 @@ library:
   source-dirs: src
 
 executables:
-  psfmt-exe:
+  psfmt:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
