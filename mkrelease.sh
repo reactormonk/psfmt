@@ -14,3 +14,6 @@ cp README.md $RELEASE_DIR
 pushd release
 tar --create --file=$DIR.tar.gz $DIR
 popd
+
+github-release release -s $GITHUB_TOKEN -u reactormonk -r psfmt --tag $GIT_VERSION
+github-release upload -s $GITHUB_TOKEN -u reactormonk -r psfmt --tag $GIT_VERSION --file release/$DIR.tar.gz --name $DIR.tar.gz

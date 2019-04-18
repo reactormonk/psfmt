@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: eae3d960030574f86df6220a2e1d68ff511a18e4265805d1ec3768a00a311789
+-- hash: b9d20e5ea6cd7cb9aad71eb45ae571944f67a5e740c2f1ab5b88aa627fef734e
 
 name:           psfmt
 version:        0.1.0.0
@@ -57,7 +57,8 @@ executable psfmt
   hs-source-dirs:
       app
   default-extensions: ApplicativeDo BangPatterns ConstraintKinds DataKinds DefaultSignatures DeriveFoldable DeriveFunctor DeriveGeneric DeriveLift DeriveTraversable DerivingStrategies EmptyCase ExistentialQuantification FlexibleContexts FlexibleInstances FunctionalDependencies GADTs GeneralizedNewtypeDeriving InstanceSigs KindSignatures LambdaCase MultiParamTypeClasses MultiWayIf NamedFieldPuns OverloadedStrings PatternSynonyms RankNTypes ScopedTypeVariables StandaloneDeriving TupleSections TypeApplications TypeFamilies TypeFamilyDependencies TypeOperators NoImplicitPrelude
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N -j4 +RTS -A32m -RTS
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N -j4 +RTS -A32m -RTS -optl-static -fPIC
+  ld-options: -static
   build-depends:
       base >=4.7 && <5
     , directory
