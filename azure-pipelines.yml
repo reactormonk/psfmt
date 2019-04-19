@@ -24,6 +24,7 @@ steps:
     stack test
   displayName: Test Package
 - bash: |
+    export PATH=$HOME/.local/bin:$PATH
     stack install --local-bin-path $(Build_BinariesDirectory)
 - task: ArchiveFiles@2
   inputs:

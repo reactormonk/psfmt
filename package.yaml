@@ -74,14 +74,13 @@ executables:
   psfmt:
     main:                Main.hs
     source-dirs:         app
-    ld-options:
-      - -static
     ghc-options:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
     - -j4 +RTS -A32m -RTS
-    - -optl-static
+    - -optl=-pthread
+    - -optc-Os
     - -fPIC
     dependencies:
     - psfmt
