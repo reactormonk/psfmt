@@ -33,16 +33,16 @@ tests = do
 goldenTests :: IO [TestTree]
 goldenTests = do
   allFiles <- liftIO $ findByExtension [".purs"] "test/data"
-  let files = filter (\e -> ".out" == (takeExtension $ dropExtension e)) allFiles
+  let files = filter (\e -> ".out" /= (takeExtension $ dropExtension e)) allFiles
   traverse createGoldenTest files
 
 instance Exception (NonEmpty ParserError)
 
 createGoldenTest :: FilePath -> IO TestTree
-createGoldenTest goldenPath = do
-  let inputPath = addExtension (dropExtension $ dropExtension goldenPath) ".purs"
+createGoldenTest inputPath = do
+  let goldenPath = addExtension (dropExtension inputPath) ".out.purs"
   input <- T.readFile inputPath
-  pure $ goldenVsStringDiff inputPath (\ref new -> ["diff", "-u", ref, new]) goldenPath $
+  pure $ goldenVsStringDiff goldenPath (\ref new -> ["diff", "-u", ref, new]) goldenPath $
     case format input of
       Left e -> throw e
       Right out -> pure $ toLazy $ (encodeUtf8 :: Text -> ByteString) out
