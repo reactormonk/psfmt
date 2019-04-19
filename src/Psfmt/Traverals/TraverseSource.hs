@@ -11,8 +11,8 @@ import Data.Generics.Product
 import Control.Lens
 
 -- takes about 2 minutes to compile, so it's in a separate file.
-traverseToken :: Traversal' (Module ()) SourceToken
-traverseToken = typesUsing @Custom @SourceToken @(Module ())
+traverseSourceToken :: Traversal' (Module ()) SourceToken
+traverseSourceToken = typesUsing @Custom @SourceToken @(Module ())
 
 data Custom
 type instance Children Custom a = ChildrenCustom a

@@ -17,12 +17,5 @@ type family ChildrenCustom (a :: Relude.Type) where
   ChildrenCustom Text = '[]
   ChildrenCustom a = Children ChGeneric a
 
--- takes about 2 minutes to compile, so it's in a separate file.
-traverseToken :: Traversal' (Module ()) Token
-traverseToken = typesUsing @Custom @Token @(Module ())
-
-traverseSourceStyleT :: Traversal' Token SourceStyle
-traverseSourceStyleT = typesUsing @Custom @SourceStyle @Token
-
-traversSourceStyle :: Traversal' (Module ()) SourceStyle
-traversSourceStyle = traverseToken . traverseSourceStyleT
+traversSourceStyle :: Traversal' (SourceToken) SourceStyle
+traversSourceStyle = typesUsing @Custom @SourceStyle @SourceToken

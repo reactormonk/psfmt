@@ -16,13 +16,14 @@ import Psfmt.Imports
 import Psfmt.RecordAliases
 import Psfmt.Utils
 import Psfmt.Traverals.TraverseSource
+import Psfmt.Traverals.TraverseStyle
 
 format :: Text -> Either (NonEmpty ParserError) Text
 format input = do
   parsed <- parse input
   let
-    extractSource = toListOf traverseToken
-    tokens = printTokens $ trailingWhitespacePass $ extractSource $ formatModule parsed
+    extractSource = toListOf traverseSourceToken
+    tokens = printTokens $ unicodePass $ trailingWhitespacePass $ extractSource $ formatModule parsed
   pure $ tokens <> foldMap ppLc (modTrailingComments parsed)
 
 ppLc :: Comment LineFeed -> Text
@@ -61,3 +62,6 @@ trailingWhitespacePass tokens =
         trailWith removeWhiteSpace current
       else
         current
+
+unicodePass :: [SourceToken] -> [SourceToken]
+unicodePass = fmap (set traversSourceStyle Unicode)
