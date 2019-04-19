@@ -17,5 +17,5 @@ type family ChildrenCustom (a :: Relude.Type) where
   ChildrenCustom Text = '[]
   ChildrenCustom a = Children ChGeneric a
 
-traversSourceStyle :: Traversal' (SourceToken) SourceStyle
-traversSourceStyle = typesUsing @Custom @SourceStyle @SourceToken
+traverseSourceStyle :: Traversal' (SourceToken) SourceStyle
+traverseSourceStyle = typesUsing @Custom @SourceStyle @SourceToken

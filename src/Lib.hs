@@ -64,4 +64,11 @@ trailingWhitespacePass tokens =
         current
 
 unicodePass :: [SourceToken] -> [SourceToken]
-unicodePass = fmap (set traversSourceStyle Unicode)
+unicodePass = fmap (over (field @"tokValue") fun)
+  where
+    fun (TokDoubleColon _) = TokDoubleColon Unicode
+    fun (TokLeftArrow _) = TokLeftArrow ASCII
+    fun (TokRightArrow _) = TokRightArrow ASCII
+    fun (TokRightFatArrow _) = TokRightFatArrow ASCII
+    fun (TokForall _) = TokForall ASCII
+    fun x = x

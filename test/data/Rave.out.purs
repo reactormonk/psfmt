@@ -33,52 +33,52 @@ derive newtype instance raveFunctor ∷ Functor (Rave r v)
 derive newtype instance raveBind ∷ Bind (Rave r v)
 derive newtype instance raveMonadError ∷ MonadThrow (Variant v) (Rave r v)
 
-class VariantInjTagged a b | a → b where
-  injTagged ∷ Record a → Variant b
+class VariantInjTagged a b | a -> b where
+  injTagged ∷ Record a -> Variant b
 
 instance variantInjTagged ∷
   ( RowToList r1 (RL.Cons sym a RL.Nil)
   , R.Cons sym a () r1
   , R.Cons sym a rx r2
   , IsSymbol sym
-  ) ⇒
+  ) =>
   VariantInjTagged r1 r2 where
     injTagged = inj (SProxy ∷ SProxy sym) <<< get (SProxy ∷ SProxy sym)
 
-throw ∷ ∀ m r1 r2 a.
-  VariantInjTagged r1 r2 ⇒
-  MonadThrow (Variant r2) m ⇒
-  Record r1 →
+throw ∷ forall m r1 r2 a.
+  VariantInjTagged r1 r2 =>
+  MonadThrow (Variant r2) m =>
+  Record r1 ->
   m a
 throw = throwError <<< injTagged
 
-runRave ∷ ∀ v r rl a.
-  RowToList v rl ⇒
-  VariantTags rl ⇒
-  VariantShows rl ⇒
-  RProxy v →
-  Rave r v a →
-  r →
+runRave ∷ forall v r rl a.
+  RowToList v rl =>
+  VariantTags rl =>
+  VariantShows rl =>
+  RProxy v ->
+  Rave r v a ->
+  r ->
   Aff a
 runRave _ (Rave rave) r = do
-  ran ← runExceptT $ runReaderT rave r
+  ran <- runExceptT $ runReaderT rave r
   case ran of
-    Right res → pure res
-    Left l → throwError $ error $ show l
+    Right res -> pure res
+    Left l -> throwError $ error $ show l
 
-liftRave ∷ ∀ m a r. MonadError Error m ⇒ m a → ExceptV (liftedError ∷ Error | r) m a
+liftRave ∷ forall m a r. MonadError Error m => m a -> ExceptV (liftedError ∷ Error | r) m a
 liftRave e = do
-  run ← lift $ try e
+  run <- lift $ try e
   case run of
-    Right r → pure r
-    Left l → throw { liftedError: l }
+    Right r -> pure r
+    Left l -> throw { liftedError: l }
 
-liftAffV ∷ ∀ r m a. MonadAff m ⇒ Aff a → ExceptV (liftedError ∷ Error | r) m a
+liftAffV ∷ forall r m a. MonadAff m => Aff a -> ExceptV (liftedError ∷ Error | r) m a
 liftAffV e = do
-  run ← liftAff $ try e
+  run <- liftAff $ try e
   case run of
-    Right r → pure r
-    Left l → throw { liftedError: l }
+    Right r -> pure r
+    Left l -> throw { liftedError: l }
 
 -- itV :: forall r.
 --   RProxy r
