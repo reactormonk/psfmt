@@ -10,16 +10,22 @@ pool:
   vmImage: 'Ubuntu-16.04'
 
 steps:
-- script: |
+- bash: |
     mkdir -p ~/.local/bin
     curl -L https://get.haskellstack.org/stable/linux-x86_64.tar.gz | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
   displayName: Install Stack
-- script: |
+- bash: |
     export PATH=$HOME/.local/bin:$PATH
     stack --no-terminal --install-ghc test --only-dependencies
   displayName: Build Dependencies
-- script: |
+- bash: |
     export PATH=$HOME/.local/bin:$PATH
     # Build the package, its tests, and its docs and run the tests
     stack test
   displayName: Test Package
+- bash: |
+    stack install --local-bin-path $(Build_BinariesDirectory)
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.BinariesDirectory)'
+    archiveType: 'tar'
