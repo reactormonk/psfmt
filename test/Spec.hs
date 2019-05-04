@@ -17,7 +17,6 @@ import System.FilePath
 import Control.Exception
 import Text.Pretty.Simple
 
-import Psfmt.Traverals.TraverseSource
 import Lib
 
 main :: IO ()

@@ -15,8 +15,8 @@ import qualified Data.Text as T
 import Psfmt.Imports
 import Psfmt.RecordAliases
 import Psfmt.Utils
-import Psfmt.Traverals.TraverseSource
-import Psfmt.Traverals.TraverseStyle
+import Psfmt.Traversals.TraverseSource
+import Psfmt.Traversals.TraverseStyle
 
 format :: Text -> Either (NonEmpty ParserError) Text
 format input = do
