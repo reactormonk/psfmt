@@ -7,6 +7,7 @@ import Test.Tasty.Golden
 
 import qualified Data.Text.IO as T
 import qualified Data.Text as T
+import qualified Data.Text.Lazy as LT
 import Language.PureScript.CST
 import Language.PureScript.CST.Errors
 import Language.PureScript.CST.Print
@@ -47,4 +48,4 @@ createGoldenTest inputPath = do
       Right out -> pure $ toLazy $ (encodeUtf8 :: Text -> ByteString) out
 
 tracePShowId :: Show a => a -> a
-tracePShowId a = trace (pShow a) a
+tracePShowId a = trace (LT.unpack $ pShow a) a
