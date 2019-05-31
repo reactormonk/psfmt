@@ -21,7 +21,6 @@ description:         Please see the README on GitHub at <https://github.com/reac
 
 dependencies:
 - base >= 4.7 && < 5
-- purescript-cst
 - text
 - filepath
 - generic-lens
@@ -29,6 +28,7 @@ dependencies:
 - lens
 - directory
 - pathwalk
+- purescript
 
 default-extensions:
   - ApplicativeDo

@@ -17,7 +17,7 @@
 #
 # resolver: ./custom-snapshot.yaml
 # resolver: https://example.com/snapshots/2018-01-01.yaml
-resolver: lts-12.21
+resolver: lts-13.12
 
 # User packages to be built.
 # Various formats can be used as shown in the example below.
@@ -38,10 +38,8 @@ packages:
 # using the same syntax as the packages field.
 # (e.g., acme-missiles-0.3)
 extra-deps:
-  - git: https://github.com/natefaubion/purescript-cst.git
-    commit: 2edc832d483f061b8272baa47a7675ae6727b8b0
-  - purescript-0.12.2
-  - megaparsec-7.0.4
+  - purescript-0.13.0
+  - network-3.0.1.1
   - git: https://github.com/kcsongor/generic-lens.git
     commit: cf20ae3a0f27d25edf97c79b6635f7c79c9bc941
 
