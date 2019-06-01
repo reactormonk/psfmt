@@ -47,5 +47,5 @@ createGoldenTest inputPath = do
       Left e -> throw e
       Right out -> pure $ toLazy $ (encodeUtf8 :: Text -> ByteString) out
 
-tracePShowId :: Show a => a -> a
-tracePShowId a = trace (LT.unpack $ pShow a) a
+-- tracePShowId :: Show a => a -> a
+-- tracePShowId a = trace (LT.unpack $ pShow a) a
