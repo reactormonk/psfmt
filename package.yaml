@@ -82,6 +82,7 @@ executables:
     - -optl=-pthread
     - -optc-Os
     - -fPIC
+    - -optP-Wno-nonportable-include-path
     dependencies:
     - psfmt
 
@@ -94,6 +95,7 @@ tests:
     - -rtsopts
     - -with-rtsopts=-N
     - -j4 +RTS -A32m -RTS
+    - -optP-Wno-nonportable-include-path
     dependencies:
     - psfmt
     - tasty
