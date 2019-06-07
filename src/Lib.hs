@@ -66,7 +66,7 @@ trailingWhitespacePass tokens =
 unicodePass :: [SourceToken] -> [SourceToken]
 unicodePass = fmap (over (field @"tokValue") fun)
   where
-    fun (TokDoubleColon _) = TokDoubleColon Unicode
+    fun (TokDoubleColon _) = TokDoubleColon ASCII
     fun (TokLeftArrow _) = TokLeftArrow ASCII
     fun (TokRightArrow _) = TokRightArrow ASCII
     fun (TokRightFatArrow _) = TokRightFatArrow ASCII
