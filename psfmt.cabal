@@ -4,10 +4,10 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: f9608684e073cee01583f81d4ec04229c5cc54a3a1f295b1b94b8c394544a570
+-- hash: 39102d835cb696a5aadc754c278046879cd1046ecfb58770190d36f392ac2bbb
 
 name:           psfmt
-version:        0.1.0.0
+version:        0.2.1
 description:    Please see the README on GitHub at <https://github.com/reactormonk/psfmt#readme>
 homepage:       https://github.com/reactormonk/psfmt#readme
 bug-reports:    https://github.com/reactormonk/psfmt/issues
@@ -57,7 +57,7 @@ executable psfmt
   hs-source-dirs:
       app
   default-extensions: ApplicativeDo BangPatterns ConstraintKinds DataKinds DefaultSignatures DeriveFoldable DeriveFunctor DeriveGeneric DeriveLift DeriveTraversable DerivingStrategies EmptyCase ExistentialQuantification FlexibleContexts FlexibleInstances FunctionalDependencies GADTs GeneralizedNewtypeDeriving InstanceSigs KindSignatures LambdaCase MultiParamTypeClasses MultiWayIf NamedFieldPuns OverloadedStrings PatternSynonyms RankNTypes ScopedTypeVariables StandaloneDeriving TupleSections TypeApplications TypeFamilies TypeFamilyDependencies TypeOperators NoImplicitPrelude
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N -j4 +RTS -A32m -RTS -optl=-pthread -optc-Os -fPIC
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N -j4 +RTS -A32m -RTS -optl=-pthread -optc-Os -fPIC -optP-Wno-nonportable-include-path
   build-depends:
       base >=4.7 && <5
     , directory
@@ -79,7 +79,7 @@ test-suite psfmt-test
   hs-source-dirs:
       test
   default-extensions: ApplicativeDo BangPatterns ConstraintKinds DataKinds DefaultSignatures DeriveFoldable DeriveFunctor DeriveGeneric DeriveLift DeriveTraversable DerivingStrategies EmptyCase ExistentialQuantification FlexibleContexts FlexibleInstances FunctionalDependencies GADTs GeneralizedNewtypeDeriving InstanceSigs KindSignatures LambdaCase MultiParamTypeClasses MultiWayIf NamedFieldPuns OverloadedStrings PatternSynonyms RankNTypes ScopedTypeVariables StandaloneDeriving TupleSections TypeApplications TypeFamilies TypeFamilyDependencies TypeOperators NoImplicitPrelude
-  ghc-options: -threaded -rtsopts -with-rtsopts=-N -j4 +RTS -A32m -RTS
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N -j4 +RTS -A32m -RTS -optP-Wno-nonportable-include-path
   build-depends:
       base >=4.7 && <5
     , directory
